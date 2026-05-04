@@ -64,6 +64,7 @@ class ProductoUpdate(BaseModel):
     Nombre: Optional[str] = None
     Precio: float
     Categoria: Optional[str] = None
+    Categori: Optional[str] = None
     Disponible: Optional[bool] = None
 
 class ProductoDelete(BaseModel):
