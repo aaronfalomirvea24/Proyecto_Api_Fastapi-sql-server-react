@@ -1,32 +1,93 @@
-<<<<<<< HEAD
 # Proyecto_Api_Fastapi-sql-server-react
-=======
-# Proyecto_Api_Fastapi-sql-server-react
-RestoAPI - Gestión de Restaurante Premium
-Características Principales
+RestoAPI — Restaurant Management System
 
-* **Dashboard Inteligente:** Visualización rápida de platillos e indicadores de latencia.
-* **Menú Digital:** Interfaz fluida desarrollada con **React 18** y **Tailwind CSS 3.4**.
-* **Backend Asíncrono:** Desarrollado con **FastAPI** para una respuesta instantánea.
-* **Base de Datos Robusta:** Integración directa con **SQL Server**.
-* **Mapa Interactivo:** Ubicación estratégica integrada mediante Google Maps.
-* Instalación y Configuración
+A full-stack restaurant management platform built with FastAPI, React, and SQL Server.
+Live demo: [your-api.railway.app](https://your-api.railway.app)//earring
 
-### 1. Requisitos Previos
-* Node.js (v18 o superior)
-* Python 3.10+
-* Instancia de SQL Server activa
+---
 
-### 2. Configuración del Backend
+## Features
+
+- **Smart Dashboard** — Real-time overview of dishes and API latency indicators.
+- **Digital Menu** — Fluid interface built with React 18 and Tailwind CSS 3.4.
+- **Async Backend** — FastAPI-powered for near-instant response times.
+- **Robust Database** — Direct SQL Server integration with optimized queries.
+- **Interactive Map** — Strategic location display via Google Maps API.
+- **JWT Authentication** — Secure role-based access control for staff and admins.
+
+---
+
+## Tech Stack
+
+| Layer     | Technology                     |
+|-----------|-------------------------------|
+| Frontend  | React 18, Tailwind CSS 3.4    |
+| Backend   | FastAPI, Python 3.10+         |
+| Database  | SQL Server                    |
+| Auth      | JWT (JSON Web Tokens)         |
+| Maps      | Google Maps API               |
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Python 3.10+
+- Node.js v18+
+- Active SQL Server instance
+
+### Backend Setup
+
 ```bash
 cd backend
 python -m venv venv
-source venv/scripts/activate  # En Windows: venv\Scripts\activate
+source venv/scripts/activate        # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 python app.py
+```
 
-Configuración del Frontend
+### Frontend Setup
+
+```bash
 cd frontend
 npm install
 npm run dev
->>>>>>> 397c28102be8afe50d8810abe5113baeb8884590
+```
+
+---
+
+## API Endpoints
+
+| Method | Endpoint         | Description          | Auth Required |
+|--------|-----------------|----------------------|---------------|
+| POST   | /auth/login     | User login + JWT     | No            |
+| GET    | /menu           | List all dishes      | No            |
+| POST   | /menu           | Create dish          | Admin         |
+| PUT    | /menu/{id}      | Update dish          | Admin         |
+| DELETE | /menu/{id}      | Delete dish          | Admin         |
+| GET    | /orders         | List all orders      | Yes           |
+| POST   | /orders         | Create new order     | Yes           |
+
+---
+
+## Project Structure
+restoapi/
+
+├── backend/
+
+│   ├── app.py
+
+│   ├── routes/
+
+│   ├── models/
+
+│   └── requirements.txt
+
+├── frontend/
+
+│   ├── src/
+
+│   └── package.json
+
+└── README.md
