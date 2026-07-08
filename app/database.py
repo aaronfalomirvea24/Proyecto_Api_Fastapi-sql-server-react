@@ -8,6 +8,8 @@ load_dotenv()
 
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
+print(f"DEBUG DATABASE_URL: {DATABASE_URL}", flush=True)
+
 # Railway a veces entrega URLs con "postgres://" — SQLAlchemy necesita "postgresql://"
 if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
