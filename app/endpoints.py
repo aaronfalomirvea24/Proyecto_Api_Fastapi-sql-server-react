@@ -23,7 +23,7 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     username: str = payload.get("sub")
     if username is None:
         raise credentials_exception
-    usuario = db.query(models.Usuarios).filter(models.Usuarios.username == username).first()
+    usuario = db.query(models.usuarios).filter(models.usuarios.username == username).first()
     if usuario is None:
         raise credentials_exception
     return usuario
@@ -44,7 +44,7 @@ def create_pedido(
         db_pedido.FechaHora = db_pedido.FechaHora.replace(tzinfo=None)
     else:
         db_pedido.FechaHora = datetime.datetime.now().replace(tzinfo=None)
-
+        
     try:
         db.add(db_pedido)
         db.commit()
@@ -54,7 +54,7 @@ def create_pedido(
         db.rollback()
         print(f"Error al insertar pedido: {e}")
         raise e
-
+    
 @router.get("/pedidos/", response_model=list[schemas.PedidoResponse])
 def read_pedidos(
     db: Session = Depends(database.get_db),
