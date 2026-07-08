@@ -4,7 +4,9 @@ from sqlalchemy.orm import sessionmaker
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+# Solo carga .env en desarrollo local, no en Railway
+if os.path.exists(".env"):
+    load_dotenv()
 
 DATABASE_URL = os.environ.get('DATABASE_URL')
 
