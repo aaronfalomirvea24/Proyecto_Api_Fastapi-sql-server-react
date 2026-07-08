@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  # Servicio de la Base de Datos
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: restaurante_db
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=TuPasswordSeguro123!
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqldata:/var/opt/mssql
+
+  # Servicio de tu API de FastAPI
+  api:
+    build: .
+    container_name: restaurante_api
+    ports:
+      - "8000:8000"
+    depends_on:
+      - sqlserver
+    environment:
+      - DATABASE_URL=mssql+pyodbc://sa:TuPasswordSeguro123!@sqlserver:1433/Restaurante?driver=ODBC+Driver+18+for+SQL+Server&TrustServerCertificate=yes
+volumes:
+  sqldata:
