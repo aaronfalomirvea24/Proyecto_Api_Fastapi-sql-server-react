@@ -12,20 +12,19 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "https://proyectoapifastapi-sql-server-react-production.up.railway.app",
-        "*"
-    ],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+@app.on_event("startup")
+def startup():
+    models.Base.metadata.create_all(bind=database.engine)
+    print("✅ Tablas creadas correctamente", flush=True)
+
 @app.get("/")
 def read_root():
     return {"message": "Bienvenido a la API del Restaurante!"}
 
-models.Base.metadata.create_all(bind=database.engine)
 app.include_router(endpoints.router)
