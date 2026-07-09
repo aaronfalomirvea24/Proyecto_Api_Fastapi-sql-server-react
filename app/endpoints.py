@@ -211,11 +211,28 @@ def delete_producto(
     db.delete(db_producto)
     db.commit()
     return db_producto
+# ──────────────────────────────────────────
+# REGISTRO DE USUARIOS
+# ──────────────────────────────────────────
 
+@router.post("/usuarios/register")
+def register(username: str, password: str, db: Session = Depends(database.get_db)):
+    # Verificar si el usuario ya existe
+    existing = db.query(models.usuarios).filter(models.usuarios.username == username).first()
+    if existing:
+        raise HTTPException(status_code=400, detail="Username already exists")
+    
+    # Hashear password y crear usuario
+    import bcrypt
+    hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+    nuevo_usuario = models.usuarios(username=username, hashed_password=hashed)
+    db.add(nuevo_usuario)
+    db.commit()
+    db.refresh(nuevo_usuario)
+    return {"message": "User created successfully", "username": nuevo_usuario.username}
 # ──────────────────────────────────────────
 # AUTH
 # ──────────────────────────────────────────
-
 @router.post("/token")
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(database.get_db)):
     usuario = db.query(models.usuarios).filter(models.usuarios.username == form_data.username).first()
