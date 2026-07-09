@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 if os.path.exists(".env"):
     load_dotenv()
 
-DATABASE_URL = os.environ.get('DATABASE_URL')
+DATABASE_URL = os.environ.get('DATABASE_URL', '').strip()
 
 print(f"DEBUG DATABASE_URL: {DATABASE_URL}", flush=True)
 
